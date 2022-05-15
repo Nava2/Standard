@@ -331,6 +331,16 @@ The hash of a the BlockHashes is then expressed using the standard aff4:hash pro
 ```
 Implementations MAY generate Block Hashes using multiple algorithms. 
 
+#### ImageStream Linear Hashes
+
+Image stream provides three disinct linear hashes utilizing any previously described hash algorithm. 
+
+| Key | Name | Description |
+| --- | ---- | ----------- |
+| `aff4:Hash` | Linear content hash | Linear hash of all _uncompressed_ content. This is often slow to verify and is commonly provided as MD5 or SHA1. |
+| `aff4:imageStreamHash` | Linear data verification hash | Linear hash of all _compressed_ bevy content. This follows [The single Block Map Hash](#the-single-block-map-hash) pattern by performing: `H(H(bevy/00000000) || H(bevy/00000001))` |
+| `aff4:imageStreamIndexHash` | Linear index verification hash | Linear hash of all bevy index files. This follows [The single Block Map Hash](#the-single-block-map-hash) pattern by performing: `H(H(bevy/00000000.index) || H(bevy/00000001.index))` |
+
 #### Map Hashes
 
 A number of properties are defined for the Map for assuring the integrity of the underlying Map segments. 
